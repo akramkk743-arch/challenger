@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة زيارة إلكترونية - بيع دهان وصباغة السيارات</title>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a2313;
+            --bg-card: rgba(18, 53, 30, 0.85);
+            --accent-gold: #ffc107;
+            --accent-gold-light: #ffe082;
+            --accent-green: #25d366;
+            --text-light: #f4f9f5;
+            --text-sub: #b2d8bc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(160deg, #05140a 0%, #0d3b1e 40%, #072211 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            color: var(--text-light);
+        }
+
+        /* Container simulating mobile card */
+        .vcard-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Header / Logo section */
+        .card-header {
+            position: relative;
+            padding: 25px 20px 15px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px auto;
+            width: 100%;
+        }
+
+        /* التعديلات هنا لجعل اللوغو دائرياً */
+        .logo-img {
+            width: 140px;          /* عرض ثابت */
+            height: 140px;         /* ارتفاع ثابت يطابق العرض */
+            border-radius: 50%;    /* تحويل الشكل إلى دائرة */
+            object-fit: cover;     /* ضمان ملء الصورة للدائرة بدون تشوه */
+            border: 3px solid var(--accent-gold); /* إطار ذهبي أنيق حول الدائرة */
+            background-color: #111; /* خلفية داكنة في حال كان اللوغو شفافاً */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logo-wrapper:hover .logo-img {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.3);
+        }
+
+        .brand-title {
+            font-size: 25px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            background: rgba(255, 193, 7, 0.12);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            margin-bottom: 15px;
+        }
+
+        /* Highlight Badge for Challenger Paint */
+        .challenger-badge {
+            background: linear-gradient(135deg, #111111 0%, #1e1e1e 100%);
+            border: 1px solid var(--accent-gold);
+            border-radius: 18px;
+            padding: 12px 15px;
+            margin: 0 20px 20px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .challenger-badge .icon {
+            font-size: 26px;
+            color: var(--accent-gold);
+        }
+
+        .challenger-badge .text {
+            text-align: right;
+        }
+
+        .challenger-badge .text h4 {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .challenger-badge .text p {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* Action Buttons Section */
+        .actions-section {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-radius: 18px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-phone {
+            background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #ffffff;
+        }
+
+        .btn-facebook {
+            background: linear-gradient(135deg, #1877f2 0%, #0b51b3 100%);
+            color: #ffffff;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .btn-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-content i {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Services Features list */
+        .features-grid {
+            padding: 0 20px 20px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 18px;
+            color: var(--accent-gold);
+            margin-bottom: 6px;
+        }
+
+        .feature-item span {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        /* QR Code Location Section */
+        .qr-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 22px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .qr-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .qr-card {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-card img {
+            width: 140px;
+            height: 140px;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .maps-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            color: var(--accent-gold-light);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .maps-link-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vcard-container">
+        <!-- Card Header & Logo -->
+        <div class="card-header">
+            <div class="logo-wrapper">
+                <img src="Logo.png" alt="Challenger Logo" class="logo-img">
+            </div>
+            <h1 class="brand-title">بيع دهان وصباغة السيارات</h1>
+            <div class="brand-subtitle"><i class="fa-solid fa-wand-magic-sparkles"></i> خبرة وجودة عالية</div>
+        </div>
+
+        <!-- Challenger Brand Feature Badge -->
+        <div class="challenger-badge">
+            <div class="icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="text">
+                <h4>موزع دهان شركة Challenger</h4>
+                <p>دهان عالي الجودة وتطابق ألوان احترافي 100%</p>
+            </div>
+        </div>
+
+        <!-- Contact Buttons Section -->
+        <div class="actions-section">
+            <!-- Direct Phone Call -->
+            <a href="tel:0778681724" class="btn-action btn-phone">
+                <div class="btn-content">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <span>اتصال تلفوني</span>
+                </div>
+                <span>0778681724</span>
+            </a>
+
+            <!-- WhatsApp Direct Button -->
+            <a href="https://wa.me/213778681724" target="_blank" class="btn-action btn-whatsapp">
+                <div class="btn-content">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>تواصل عبر الواتساب</span>
+                </div>
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+
+            <!-- Facebook Page -->
+            <a href="https://web.facebook.com/profile.php?id=61592683499078" target="_blank" class="btn-action btn-facebook">
+                <div class="btn-content">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <span>صفحتنا على الفيسبوك</span>
+                </div>
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+        </div>
+
+        <!-- Highlights Grid -->
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fa-solid fa-spray-can-sparkles"></i>
+                <span>صباغة احترافية</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-award"></i>
+                <span>جودة عالية مضمونة</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-palette"></i>
+                <span>تركيب الألوان بالدقة</span>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-car-side"></i>
+                <span>جميع أنواع السيارات</span>
+            </div>
+        </div>
+
+        <!-- QR Code for Google Maps Location -->
+        <div class="qr-section">
+            <div class="qr-title">
+                <i class="fa-solid fa-location-dot" style="color: #ff5252;"></i>
+                <span>امسح رمز QR للوصول إلى موقعنا عبر الخريطة</span>
+            </div>
+            <div class="qr-card">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://maps.app.goo.gl/1QsnWAgD1ea1Xtau6&color=0d3b1e" alt="موقع المحل QR Code">
+            </div>
+            <br>
+            <a href="https://maps.app.goo.gl/1QsnWAgD1ea1Xtau6" target="_blank" class="maps-link-btn">
+                <i class="fa-solid fa-map-location-dot"></i> فتح موقع المحل مباشرة (Google Maps)
+            </a>
+        </div>
+
+        <footer>
+            بطاقة زيارة إلكترونية احترافية &copy; 2026
+        </footer>
+    </div>
+
+</body>
+</html>
