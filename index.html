@@ -372,11 +372,11 @@
             </div>
             
             <div class="qr-card">
-                <!-- استبدل YOUR_WEBSITE_LINK_HERE بالرابط الخاص ببطاقتك -->
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=YOUR_WEBSITE_LINK_HERE&color=0d3b1e" alt="QR Code لمشاركة البطاقة">
+                <!-- تم إضافة id للصورة لكي نتمكن من تعديلها برمجياً -->
+                <img id="dynamic-qr-code" src="" alt="QR Code لمشاركة البطاقة">
             </div>
             <br>
-            <!-- الزر الخاص بخرائط جوجل بقي كما هو لمن يريد الوصول للموقع -->
+            
             <a href="https://maps.app.goo.gl/1QsnWAgD1ea1Xtau6" target="_blank" class="maps-link-btn">
                 <i class="fa-solid fa-map-location-dot"></i> فتح موقع المحل (Google Maps)
             </a>
@@ -387,5 +387,18 @@
         </footer>
     </div>
 
+    <!-- السكريبت الديناميكي لتوليد الـ QR Code بناءً على رابط الموقع الفعلي -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // جلب الرابط الحالي للصفحة
+            var currentUrl = window.location.href;
+            
+            // إنشاء رابط الـ API لتوليد الـ QR Code باللون المناسب
+            var qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&color=0d3b1e&data=" + encodeURIComponent(currentUrl);
+            
+            // تعيين الرابط كمسار للصورة
+            document.getElementById('dynamic-qr-code').src = qrApiUrl;
+        });
+    </script>
 </body>
 </html>
